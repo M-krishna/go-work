@@ -43,6 +43,15 @@ func main(){
 	fmt.Println("Rectangle Area is", r1.Area())
 	fmt.Println("Rectangle Area by Reference: ", (&r1).Area())
 	fmt.Println("Rectangle Perimeter is: ", r1.Perimeter())
+
+	// using factory function 
+	vegeta := NewSaiyan("Vegeta", 5000)
+	fmt.Println(vegeta)
+	piccolo := NewSaiyanOne("piccolo", 3000)
+	fmt.Println(piccolo)
+
+	// fields of a structure
+	sprsaiyan()
 }
 
 func Super(s Saiyan){
@@ -58,3 +67,45 @@ func (s *Saiyan) Hello(){
 	s.Power += 100
 }
 
+// structures dont have constructors
+// instead we can create a factory function
+// that returns the instance of desired type
+// here im creating a factory function for Saiyan type
+func NewSaiyan(name string, power int) Saiyan{
+	return Saiyan{
+		Name: name,
+		Power: power,
+	}
+}
+
+// we can also return pointers
+func NewSaiyanOne(name string, power int) *Saiyan{
+	return &Saiyan{
+		Name: name,
+		Power: power,
+	}
+}
+
+// Fields of a Structure
+// Fields can be of any type - including other structures and types
+// like arrays, maps, interface and functions.
+
+type SuperSaiyan struct {
+	Name string
+	Power int
+	Father *SuperSaiyan
+}
+
+func sprsaiyan() {
+	gohan := &SuperSaiyan{
+		Name: "Gohan",
+		Power: 8000,
+		Father: &SuperSaiyan{
+			Name: "Goku",
+			Power: 9000,
+			Father: nil,
+		},
+	}
+	fmt.Println(gohan)
+	fmt.Println(gohan.Name, gohan.Power, gohan.Father)
+}
