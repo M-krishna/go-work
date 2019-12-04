@@ -45,5 +45,43 @@ func main(){
 	// checking if a key really exists or not
 	// because if the value of the key is empty
 	// its gonna return the type of the map
-	
+	name, number := personMobileNo["Kathir"]
+	fmt.Println(name, number)
+
+	// To find the length of the map
+	// we can use len function
+	fmt.Println("Length of the Map: ", len(personMobileNo))
+
+	// To delete a key in the map
+	// we can use delete function
+	// its not gonna return anything
+	// we can use this on non exists key
+	delete(personMobileNo, "Krishna")
+	fmt.Println(personMobileNo, len(personMobileNo))
+
+	// Maps grow dynamically
+	// however if we want, we can supply 2nd argument to make 
+	// to set an initial size
+	// defining an initial size can help with performance
+	lookup := make(map[string]int, 100)
+	fmt.Println(lookup)
+
+	// when you need a map as a field of a structure
+	// we can define it as
+	type Saiyan struct{
+		Name string
+		Friends map[string]Saiyan
+	}
+
+	goku := Saiyan{
+		Name: "Goku",
+		Friends: make(map[string]Saiyan),
+	}
+	piccolo := Saiyan{
+		Name: "Piccolo",
+		Friends: make(map[string]Saiyan),
+	}
+	goku.Friends["Piccolo"] = piccolo
+	fmt.Println(goku)
+	// not so clear about what im doing in the above chunk of code.
 }
