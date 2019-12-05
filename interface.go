@@ -45,4 +45,32 @@ func main(){
 	fmt.Printf("value of s is %v\n", s)
 	fmt.Println("area of rectangle s", s.Area())
 	fmt.Println("s == r is", s == r)
+	
+	var c Shape
+	c = Circle{5}
+	fmt.Printf("type of c is %T\n", c)
+	fmt.Printf("value of c is %v\n", c)
+	fmt.Println("Area of Circle c is", c.Area())
+	fmt.Println("Perimeter of Circle c is", c.Perimeter())
+
+	// in order to successfully implement an interface
+	// you need to implement all the methods declared by the interface
+	// in the about code, if we remove perimeter method
+	// go will throw us as an error stating that the perimeter method
+	// is missing
+
+	//calling the explain function
+	type MyString string
+	ms := MyString("Hello World")
+	explain(ms)
+	rr := Rect{3.0, 5.0}
+	explain(rr)
+}
+
+// empty interface
+// when an interface has zero methods, it is called empty interface.
+// its represented by interface{}
+
+func explain(i interface{}){
+	fmt.Printf("value given to the explain function is of type %T with value %v", i, i)
 }
