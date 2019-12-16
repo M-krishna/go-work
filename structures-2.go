@@ -55,10 +55,42 @@ var employee struct{
 /* 
 	Anonymous fields.
 	The snippet below create a struct Person which has 2 anonymous fields string and int. 
+	It is not possible to have multiple anonymous fields of same type.
 */
 type Person struct{
 	string
 	int
+}
+
+
+// Nested Structure.
+type Address struct {
+	city, state string
+}
+
+type NewPerson struct {
+	name string
+	age int
+	address Address
+}
+
+
+// Promoted Fields
+type Person2 struct{
+	name string
+	age int
+	Address
+}
+
+// structs equality
+type name struct{
+	firstName string
+	lastName string
+}
+
+// struct Image with field data of type map(Maps are not comparable)
+type Image struct{
+	data map[int]int
 }
 
 func main(){
@@ -159,4 +191,94 @@ func main(){
 	p1.string = "Krishna"
 	p1.int = 22
 	fmt.Println(p1)
+
+	/*
+		Nested structs.
+		It is possible that a struct contains a field that itself is a struct.
+		These kinds of structs are called nested structs.
+	*/
+	fmt.Println("Nested Structs")
+	var p2 NewPerson
+	p2.name = "Krishna"
+	p2.age = 22
+	p2.address = Address{
+		city: "Chennai",
+		state: "Tamilnadu",
+	}
+	fmt.Println(p2)
+	fmt.Println("Name: ", p2.name)
+	fmt.Println("Age: ", p2.age)
+	fmt.Println("City: ", p2.address.city)
+	fmt.Println("State: ", p2.address.state)
+
+	/*
+		Promoted Fields.
+		what are promoted fields???
+		Fields that belong to a anonymous struct field in a structure is called Promoted Fields.
+
+		(Eg.)
+		type Address struct{
+			city, state string
+		}
+
+		type Person struct{
+			name string
+			age int
+			Address // Anonymous struct field
+		}
+
+		In the above code snippet, Address is an anonymous struct field of struct Person.
+		The fields of the Address struct are namely city and state.
+		So these fields are called Promoted fields.
+		They can be accessed directly in the Person struct itself
+	*/
+	fmt.Println("Promoted Fields")
+	var p3 Person2
+	p3.name = "Krishna"
+	p3.age = 22
+	p3.city = "Chennai"
+	p3.state = "Tamilnadu"
+	fmt.Println(p3)
+	fmt.Println("Directly accessing the Promoted field ", p3.city, p3.state)
+
+	/*
+		Exported struct and fields.
+		If a struct type starts with Capital letter, then it is a exported type and it can be accessed 
+		from other packaes.
+		Similarly if the fields of the structure starts with Capital Letter, they can be accessed from other 
+		Packages too.
+
+		Need to implement using packages.
+	*/
+
+	/*
+		structs equality.
+		structs are value types and are comparable, if each of their field values are comparable.
+		Two struct variables are considered equal, if their corresponding fields are equal.
+	*/
+	name1 := name{"krishna", "Murugan"}
+	name2 := name{"krishna", "Murugan"}
+	if name1 == name2{
+		fmt.Println("Names are equal")
+	} else{
+		fmt.Println("Names are not equal")
+	}
+
+	// Note: struct variables are not comparable if they contain fields which are not comparable.
+	image1 := Image{data: map[int]int{
+		0: 255,
+	}}
+
+	image2 := Image{data: map[int]int{
+		0: 255,
+	}}
+
+	fmt.Println(image1, image2)
+
+	/*if image1 == image2{
+		fmt.Println("Images are equal")
+	}*/
+
+	// In the above snippet, we cannot compare image1 and image2 because the fields are of type map.
+	// maps are not comparable.
 }
