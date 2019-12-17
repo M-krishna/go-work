@@ -55,9 +55,8 @@ func main(){
 
 	// in order to successfully implement an interface
 	// you need to implement all the methods declared by the interface
-	// in the about code, if we remove perimeter method
-	// go will throw us as an error stating that the perimeter method
-	// is missing
+	// in the above code, if we remove perimeter method
+	// go will throw us as an error stating that the perimeter method is missing
 
 	//calling the explain function
 	type MyString string
