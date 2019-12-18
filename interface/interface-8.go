@@ -47,5 +47,20 @@ func main(){
 		Methods with value receivers accept both pointer and value receivers.
 		It is legal to call a value method on anything which is a value or whose value can be dereferenced.
 		
+		In we uncomment line number 42 we'll get an compilation error saying 
+		main.go:42: cannot use a (type Address) as type Describer in assignment: 
+		Address does not implement Describer (Describe method has pointer receiver).
+
+		This is because the Describer interface using Address Pointer receiver in line number 26
+		and we are trying to assign it to a which is a value type and it has not implemented the 
+		Describer interface.
+
+		This will be confusing because that methods with pointer receivers will accept both value 
+		and pointer receivers. Then why isn't this working.
+
+		The reason is that it is legal to call a pointer-value method on anything that is a pointer
+		or whose address can be taken. The concrete value stored in an interface is not addressable
+		and hence it is not possible for the compiler to automatically take the address a. Hence this
+		code fails.
 	*/
 }
