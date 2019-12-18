@@ -31,3 +31,4 @@
     * [Interface 8](https://github.com/M-krishna/go-work/blob/master/interface/interface-8.go)
     * [Interface 9](https://github.com/M-krishna/go-work/blob/master/interface/interface-9.go)
     * [Interface 10](https://github.com/M-krishna/go-work/blob/master/interface/interface-10.go)
+    * [Interface 11](https://github.com/M-krishna/go-work/blob/master/interface/interface-11.go)
