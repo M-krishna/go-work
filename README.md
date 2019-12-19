@@ -17,6 +17,7 @@
 * [Maps](https://github.com/M-krishna/go-work/blob/master/map.go)
     * [Maps 2](https://github.com/M-krishna/go-work/blob/master/map-2.go)
 * [Strings](https://github.com/M-krishna/go-work/blob/master/string.go)
+    * [String Methods](https://github.com/M-krishna/go-work/blob/master/string-methods.go)
 * [Pointers](https://github.com/M-krishna/go-work/blob/master/pointers.go)
 * [Structures](https://github.com/M-krishna/go-work/blob/master/structures.go)
     * [Structures 2](https://github.com/M-krishna/go-work/blob/master/structures-2.go)
