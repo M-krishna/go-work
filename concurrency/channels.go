@@ -44,6 +44,48 @@ func senddata(sendch chan<- int){
 	sendch <- 10
 }
 
+// closing a channel.
+func Producer(ch chan int){
+	for i := 0; i < 10; i++ {
+		ch <- i
+	}
+	close(ch) // closing a channel
+}
+
+/*
+	Rewriting the square and cubes function for more code reusability.
+*/
+func digits(number int, dchcl chan int){
+	for number != 0 {
+		digit := number % 10
+		dchcl <- digit
+		number /= 10
+	}
+	close(dchcl)
+}
+
+func calculateSquare(number int, schcl chan int){
+	sum := 0
+	dch := make(chan int)
+	go digits(number, dch)
+	for digit := range dch {
+		sum += digit * digit
+	}
+	schcl <- sum
+}
+
+func calculateCubes(number int, cubchcl chan int){
+	sum := 0
+	sch := make(chan int)
+	go digits(number, sch)
+	for digit := range sch{
+		sum += digit * digit * digit
+	}
+	cubchcl <- sum
+}
+
+/* End of rewriting */
+
 func main()  {
 
 	/*
@@ -161,4 +203,50 @@ func main()  {
 	go senddata(sendcha2) // The senddata function converts this channel into a send only channel in line no. 43.
 	// so the channel is sendonly inside the senddata Goroutine and bidirectional in main Goroutine. 
 	fmt.Println(<- sendcha2) // receiving value from the send only channel.
+
+	/*
+		Closing channels and for range loops on channels.
+
+		Senders have the ability to close the channels to notify the receivers that no more data will
+		be sent on the channel.
+
+		Receivers can use additional variable while receiving data from the channel to check whether
+		the channel has been closed.
+
+		v, ok := <- ch
+
+		In the above statement ok is true if the value was received by a successful send operation
+		to a channel. If ok is false means, that we are reading from a closed channel.
+		The value read from a closed channel will be the zero value of the channels type.
+		For example, if the channel is an int channel, then the value received from the closed channel
+		will be 0.
+	*/
+	ch1 := make(chan int)
+	go Producer(ch1)
+	for {
+		v, ok := <- ch1
+		if !ok {
+			break
+		}
+		fmt.Println("Received ", v, ok)
+	}
+
+	// lets rewrite the above program using for range
+	ch2 := make(chan int)
+	go Producer(ch2)
+	fmt.Println("Using for range")
+	for v := range ch2{ // automatically breaks after the channel is closed.
+		fmt.Println("Received ", v)
+	}
+
+	/*
+		Lets rewrite the squares and cubes program using for range loop for more code reusability.
+	*/
+	number := 123
+	squarech := make(chan int)
+	cubech := make(chan int)
+	go calculateSquare(number, squarech)
+	go calculateCubes(number, cubech)
+	squares1, cubes1 := <- squarech, <- cubech
+	fmt.Println("Sum of squares and cubes after rewriting ", squares1 + cubes1)
 }
