@@ -34,5 +34,6 @@
     * [Interface 10 - Embedding Interfaces.](https://github.com/M-krishna/go-work/blob/master/interface/interface-10.go)
     * [Interface 11 - Zero Value of an interface.](https://github.com/M-krishna/go-work/blob/master/interface/interface-11.go)
 * Concurrency
-    * [Goroutines](https://github.com/M-krishna/go-work/blob/master/concurrency/go-routine.go)
+    * [Goroutine](https://github.com/M-krishna/go-work/blob/master/concurrency/go-routine.go)
     * [Channels](https://github.com/M-krishna/go-work/blob/master/concurrency/channels.go)
+    * [Buffered Channel](https://github.com/M-krishna/go-work/blob/master/concurrency/buffered-channel.go)
