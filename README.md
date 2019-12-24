@@ -38,3 +38,4 @@
     * [Channels](https://github.com/M-krishna/go-work/blob/master/concurrency/channels.go)
     * [Buffered Channel](https://github.com/M-krishna/go-work/blob/master/concurrency/buffered-channel.go)
     * [Worker Pool](https://github.com/M-krishna/go-work/blob/master/concurrency/worker-pool.go)
+    * [Select](https://github.com/M-krishna/go-work/blob/master/concurrency/select.go)
