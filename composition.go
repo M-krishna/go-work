@@ -2,9 +2,12 @@ package main
 
 import "fmt"
 
-// composition instead of inheritance
-// composition can be achieved by embedding one struct type into another
-// blog post is a perfect example
+/* 
+	composition instead of inheritance
+ 	composition can be achieved by embedding one struct type into another
+	blog post is a perfect example
+*/
+
 
 // blog post contains author
 type author struct{
@@ -19,6 +22,20 @@ type post struct{
 	content string
 	author
 }
+
+/* Embedding Slice of struct */
+type Website struct {
+	posts []post
+}
+
+func (w Website) Contents() {
+	fmt.Println("Contents of the Website")
+	for _, v := range w.posts {
+		v.details()
+		fmt.Println()
+	}
+}
+
 
 // function to get the fullname of the author
 func (a author) fullName() string{
@@ -51,9 +68,21 @@ func constructBlogPost(Title string, Content string, a author) post{
 
 func main(){
 	krishna := constructAuthor("Krishna", "Murugan", "I'm a Programmer!")
-	blog_post := constructBlogPost("First Blog Post", "My First Line", krishna)
+	blog_post_1 := constructBlogPost("First Blog Post", "My First Line", krishna)
+	blog_post_2 := constructBlogPost("2nd Blog Post", "My First Line", krishna)
+	blog_post_3 := constructBlogPost("3rd Blog Post", "My First Line", krishna)
+	blog_post_4 := constructBlogPost("4th Blog Post", "My First Line", krishna)
+	w := Website{
+		posts: []post{blog_post_1, blog_post_2, blog_post_3, blog_post_4},
+	}
 	fmt.Println(krishna)
-	fmt.Println(blog_post)
+	fmt.Println(blog_post_1)
 	fmt.Println(krishna.fullName())
-	blog_post.details()
+	blog_post_1.details()
+	fmt.Println()
+
+	/*
+		Embedding Slice of structs.
+	*/
+	w.Contents()
 }
