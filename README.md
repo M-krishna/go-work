@@ -41,5 +41,5 @@
     * [Select](https://github.com/M-krishna/go-work/blob/master/concurrency/select.go)
 * [Polymorphism](https://github.com/M-krishna/go-work/blob/master/polymorphism.go)
 * [Error Handling](https://github.com/M-krishna/go-work/blob/master/error-handling.go)
-* [Custom Errors](https://github.com/M-krishna/go-work/blob/master/custome-errors.go)
+* [Custom Errors](https://github.com/M-krishna/go-work/blob/master/custom-errors.go)
 * [defer](https://github.com/M-krishna/go-work/blob/master/defer.go)
