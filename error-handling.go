@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"net"
+	"path/filepath"
 )
 
 /*
@@ -26,11 +28,11 @@ func main(){
 	}
 
 	fs, err := os.Open("/test.txt")
-	/*if err != nil{
+	if err != nil{
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(fs.Name(), "opened successfully")*/
+	fmt.Println(fs.Name(), "opened successfully")
 
 	/*
 		If the file has been opened successfully, then the open function will return the file handler
@@ -79,4 +81,62 @@ func main(){
 
 	// in the above program we use type assertion to get the underlying value of the error interface.
 	// Then we print the path using err.Path
+
+	/*
+		Asserting the underlying struct type and getting more information using methods.
+
+		Lets understand this by an example.
+
+		The DNSError struct type in the standard library is defined as follows.
+
+		type DNSError struct{
+			...
+		}
+
+		func (e *DNSError) Error() string {
+			...
+		}
+
+		func (e *DNSError) Timeout() bool {
+			...
+		}
+
+		func (e *DNSError) Temporary() bool {
+			...
+		}
+
+		The DNSError struct has 2 methods Timeout() bool and Temporary() bool which return a boolean
+		value that indicates whether the error is because of a Timeout or it is Temporary.
+
+		Lets write a program which asserts *DNSError type and calls these methods to determine 
+		whether the error is temporary or due to timeout.
+	*/
+	addr, err := net.LookupHost("golangbot123.com")
+	if err, ok := err.(*net.DNSError); ok {
+		if err.Timeout(){
+			fmt.Println("Operation timed out")
+		} else if err.Temporary() {
+			fmt.Println("Temporary Error")
+		} else {
+			fmt.Println("Generic Error", err)
+		}
+		return
+	}
+	fmt.Println(addr)
+
+	/*
+		Direct Comparison.
+		Another way to get more details about an error is the direct comparison with a variable of 
+		type error.
+
+		The Glob function in the filepath package is used to return the names of all the files 
+		that matches a pattern. This function returns an error ErrBadPattern when the pattern is
+		malformed.
+	*/
+	files, error := filepath.Glob("[")
+	if error != nil && error == filepath.ErrBadPattern {
+		fmt.Println(error)
+		return
+	}
+	fmt.Println(files)
 }
