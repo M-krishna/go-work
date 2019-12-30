@@ -46,3 +46,4 @@
     * [defer](https://github.com/M-krishna/go-work/blob/master/defer.go)
     * [Panic](https://github.com/M-krishna/go-work/blob/master/panic.go)
     * [Recover](https://github.com/M-krishna/go-work/blob/master/recover.go)
+* [First Class Functions](https://github.com/M-krishna/go-work/blob/master/first-class-functions.go)
